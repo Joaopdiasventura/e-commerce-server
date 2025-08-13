@@ -1,0 +1,25 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://postgres:postgres@db:5432/e_commerce
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - next-api:/var/lib/postgresql/data
+
+volumes:
+  next-api:
