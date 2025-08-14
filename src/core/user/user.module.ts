@@ -6,7 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
 import { AuthModule } from "../../shared/modules/auth/auth.module";
 import { EmailModule } from "src/shared/modules/email/email.module";
-import { UserGateway } from './user.gateway';
+import { UserGateway } from "./user.gateway";
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), AuthModule, EmailModule],
@@ -20,5 +20,6 @@ import { UserGateway } from './user.gateway';
       useExisting: PostgresUserRepository,
     },
   ],
+  exports: [UserService],
 })
 export class UserModule {}

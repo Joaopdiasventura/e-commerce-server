@@ -5,6 +5,7 @@ import { DatabaseConfig } from "./config/db.config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { CoreModule } from "./core/core.module";
 import { EmailModule } from './shared/modules/email/email.module';
+import { FileModule } from './shared/modules/file/file.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { EmailModule } from './shared/modules/email/email.module';
     }),
     CoreModule,
     EmailModule,
+    FileModule,
   ],
   controllers: [],
   providers: [],

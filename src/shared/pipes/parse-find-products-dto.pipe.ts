@@ -1,12 +1,12 @@
 import { PipeTransform, Injectable, BadRequestException } from "@nestjs/common";
 import { plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
-import { LoginUserDto } from "../../core/user/dto/login-user.dto";
+import { FindProductsDto } from "../../core/product/dto/find-products.dto";
 
 @Injectable()
-export class ParseLoginUserDtoPipe implements PipeTransform {
-  public transform(value: LoginUserDto): LoginUserDto {
-    const dto = plainToInstance(LoginUserDto, value);
+export class ParseFindProductsDtoPipe implements PipeTransform {
+  public transform(value: FindProductsDto): FindProductsDto {
+    const dto = plainToInstance(FindProductsDto, value);
     const errors = validateSync(dto, {
       whitelist: true,
       forbidNonWhitelisted: true,
