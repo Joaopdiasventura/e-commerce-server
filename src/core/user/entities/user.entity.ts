@@ -15,6 +15,9 @@ export class User {
   @Column({ nullable: false })
   public password?: string;
 
+  @Column({ nullable: true })
+  public type?: string;
+
   @Column({ default: false })
   public isVerified: boolean;
 }

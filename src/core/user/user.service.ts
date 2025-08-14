@@ -82,14 +82,22 @@ export class UserService {
       updateUserDto.password = await this.authService.hashPassword(
         updateUserDto.password,
       );
+    if (updateUserDto.type) delete updateUserDto.type;
 
     await this.userRepository.update(id, updateUserDto);
     return { message: "Usuário atualizado com sucesso" };
   }
 
+  public async changeType(token: string): Promise<Message> {
+    const { id, type } = await this.decodeToken(token);
+    await this.userRepository.update(id, {
+      type: type == "seller" ? undefined : "seller",
+    });
+    return { message: "Parabéns por se tornar um vendedor" };
+  }
+
   public async validateEmail(token: string): Promise<Message> {
-    const id = await this.authService.decodeToken(token);
-    const { email } = await this.findById(id);
+    const { id, email } = await this.decodeToken(token);
     await this.userRepository.update(id, { isVerified: true });
     this.userGateway.emailValidated(email);
     return { message: "Conta validada com sucesso" };

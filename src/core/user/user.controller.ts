@@ -46,7 +46,12 @@ export class UserController {
     return this.userService.update(token, updateUserDto);
   }
 
-  @Patch(":token")
+  @Patch("changeType/:token")
+  public changeType(@Param("token") token: string): Promise<Message> {
+    return this.userService.changeType(token);
+  }
+
+  @Patch("validateEmail/:token")
   public validateEmail(@Param("token") token: string): Promise<Message> {
     return this.userService.validateEmail(token);
   }
