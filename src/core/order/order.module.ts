@@ -7,6 +7,7 @@ import { OrderProduct } from "./entities/order-product.entity";
 import { UserModule } from "../user/user.module";
 import { ProductModule } from "../product/product.module";
 import { PostgresOrderRepository } from "./repositories/order.postgres.repository";
+import { OrderProductSubscriber } from "./subscribers/order-product.subscriber";
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PostgresOrderRepository } from "./repositories/order.postgres.repositor
   providers: [
     OrderService,
     PostgresOrderRepository,
+    OrderProductSubscriber,
     {
       provide: "IOrderRepository",
       useClass: PostgresOrderRepository,

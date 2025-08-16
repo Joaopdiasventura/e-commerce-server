@@ -44,7 +44,7 @@ export class OrderService {
 
         if (p.product.quantity < p.quantity)
           throw new BadRequestException(
-            `Quantidade insuficiente para o produto ${p.product.name}\n Disponível: ${p.product.quantity}, Solicitado: ${p.quantity}`,
+            `Quantidade insuficiente para o produto ${p.product.name}; Disponível: ${p.product.quantity}, Solicitado: ${p.quantity}`,
           );
 
         if (!p.product.seller)
