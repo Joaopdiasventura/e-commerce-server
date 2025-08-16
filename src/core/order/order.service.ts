@@ -31,6 +31,11 @@ export class OrderService {
         "Valide seu usuário para criar um pedido",
       );
 
+    if (!createOrderDto.user.address)
+      throw new BadRequestException(
+        "Você precisa adicionar um endereço antes de criar um pedido",
+      );
+
     createOrderDto.value = 0;
 
     createOrderDto.products = await Promise.all(

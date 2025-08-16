@@ -1,4 +1,11 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Address } from "../../address/entities/address.entity";
 
 @Entity()
 export class User {
@@ -20,4 +27,7 @@ export class User {
 
   @Column({ default: false })
   public isVerified: boolean;
+
+  @OneToOne(() => Address, (address) => address.user, { eager: true })
+  public address: Address;
 }

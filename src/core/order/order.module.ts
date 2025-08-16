@@ -23,5 +23,6 @@ import { PostgresOrderRepository } from "./repositories/order.postgres.repositor
       useClass: PostgresOrderRepository,
     },
   ],
+  exports: [OrderService],
 })
 export class OrderModule {}
