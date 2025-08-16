@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { OrderService } from './order.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from "@nestjs/common";
+import { OrderService } from "./order.service";
+import { CreateOrderDto } from "./dto/create-order.dto";
+import { Message } from "../../shared/interfaces/messages/message";
+import { Order } from "./entities/order.entity";
 
-@Controller('order')
+@Controller("order")
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  public constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
+  public create(@Body() createOrderDto: CreateOrderDto): Promise<Message> {
     return this.orderService.create(createOrderDto);
   }
 
-  @Get()
-  findAll() {
-    return this.orderService.findAll();
+  @Get(":id")
+  public findById(@Param("id", ParseUUIDPipe) id: string): Promise<Order> {
+    return this.orderService.findById(id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderService.findOne(+id);
+  @Get("findManyByUser/:user")
+  public findManyByUser(
+    @Param("user", ParseUUIDPipe) user: string,
+  ): Promise<Order[]> {
+    return this.orderService.findManyByUser(user);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderService.remove(+id);
+  @Delete(":id")
+  public delete(@Param("id", ParseUUIDPipe) id: string): Promise<Message> {
+    return this.orderService.delete(id);
   }
 }

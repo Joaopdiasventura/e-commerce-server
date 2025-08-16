@@ -33,7 +33,12 @@ export class ProductService {
 
     if (!createProductDto.seller.isVerified)
       throw new UnauthorizedException(
-        "Valide seu usuário para criar um produto",
+        "Valide seu usuário para cadastrar um produto",
+      );
+
+    if (createProductDto.seller.type != "seller")
+      throw new UnauthorizedException(
+        "Apenas vendedores podem cadastrar produtos, torne-se um vendedor para cadastrar seus produtos",
       );
 
     if (files.length == 0)
