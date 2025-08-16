@@ -22,17 +22,16 @@ class OrderProductDto {
 }
 
 export class CreateOrderDto {
-  
   @IsUUID(undefined, {
     message: "Usuário inválido. O ID deve ser um UUID válido.",
   })
   public userId: string;
-  
+
   @IsArray({ message: "Produtos inválidos. Deve ser uma lista de produtos." })
   @ValidateNested({ each: true })
   @Type(() => OrderProductDto)
   public products: OrderProductDto[];
-  
+
   public value: number;
   public user: User;
 }
